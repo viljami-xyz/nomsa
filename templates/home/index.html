@@ -1,0 +1,31 @@
+{% extends "shared/_layout.html" %} {% block home_content %}
+
+	<div class="home">
+		<!-- <img
+			src="/static/images/nomsa-logo.png"
+			alt="Nomsa Logo"
+			style="height: 100px; width: auto"
+		/> -->
+		<div id="content">
+			<div class="search-bar">
+				<form action="/search" method="get">
+					<input
+						type="text"
+						name="q"
+						placeholder="What good happened today?"
+						style="height: 35px; width: 250px"
+					/>
+					<input type="submit" value=">" style="height: 40px" />
+				</form>
+			</div>
+			<div class="question-bar" style="display: inline-flex">
+				<form action="/previous_question" method="get">
+					<button class="previous-question">Previous</button>
+				</form>
+				<form action="/finish_question" method="get">
+					<button class="finish-question">Finish</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
