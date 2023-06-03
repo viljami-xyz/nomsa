@@ -1,2 +1,2 @@
-# nomsa-back
-Nomsa Applications backend
+# nomsa
+Nomsa Application
