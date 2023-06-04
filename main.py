@@ -2,12 +2,11 @@
 Main file to run the application with uvicorn
 """
 
-from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 import uvicorn
 from app.config.settings import Settings
-from app.routes import authentication, home
+from app.routes import authentication, home, books, diary, reflections
 
 settings = Settings()
 
@@ -16,6 +15,9 @@ PORT = int(settings.port)
 
 app = home.app
 app.include_router(authentication.router)
+app.include_router(books.router)
+app.include_router(diary.router)
+app.include_router(reflections.router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

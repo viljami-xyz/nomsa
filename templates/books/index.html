@@ -1,0 +1,28 @@
+{% extends "home/index.html" %} {% block books %}
+<div>
+	<h1>Books</h1>
+	<div class="add-new-book">
+		<form
+			id="NewBook"
+			hx-post="/books/new"
+			hx-target="#result"
+			hx-ext="json-enc"
+		>
+			<input
+				type="text"
+				name="name"
+				placeholder="Name"
+				style="height: 35px; width: 150px"
+			/>
+			<input
+				type="text"
+				name="author"
+				placeholder="Author"
+				style="height: 35px; width: 150px"
+			/>
+			<input type="submit" value="New book" style="height: 40px" />
+		</form>
+		<div id="result"></div>
+	</div>
+</div>
+{% endblock %}
