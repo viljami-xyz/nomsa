@@ -1,24 +1,41 @@
 {% extends "home/index.html" %} {% block reflections %}
 
-<div id="content">
-	<div class="search-bar">
-		<form action="/search" method="get">
+<div>
+	<form action="/new" method="post">
+		<div>
+			<p>What good happened today?</p>
 			<input
 				type="text"
-				name="q"
-				placeholder="What good happened today?"
+				name="good"
+				placeholder=""
 				style="height: 35px; width: 250px"
 			/>
-			<input type="submit" value=">" style="height: 40px" />
-		</form>
-	</div>
-	<div class="question-bar" style="display: inline-flex">
-		<form action="/previous_question" method="get">
-			<button class="previous-question">Previous</button>
-		</form>
-		<form action="/finish_question" method="get">
-			<button class="finish-question">Finish</button>
-		</form>
-	</div>
+			<p>Did something make you smile?</p>
+			<input
+				type="text"
+				name="smile"
+				placeholder=""
+				style="height: 35px; width: 250px"
+			/>
+			<p>Is there anything you would've done other way?</p>
+			<input
+				type="text"
+				name="other"
+				placeholder=""
+				style="height: 35px; width: 250px"
+			/>
+		</div>
+		<div style="align-items: center; justify-content: center">
+			<button
+				type="submit"
+				hx-post="new"
+				hx-trigger="click"
+				hx-target="#reflectionList"
+			>
+				Insert reflection
+			</button>
+		</div>
+		<div id="reflectionList"></div>
+	</form>
 </div>
 {% endblock %}

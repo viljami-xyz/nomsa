@@ -3,7 +3,7 @@
     _description_: The reflections API allows users to create, read, update, and delete reflections.
 
     """
-from fastapi import routing, Depends, HTTPException, status, Request
+from fastapi import routing, Depends, HTTPException, status, Request, Form
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List, Dict, Any
 from fastapi.templating import Jinja2Templates
@@ -18,3 +18,15 @@ router = routing.APIRouter(prefix="/reflections", tags=["reflections"])
 async def reflections(request: Request):
     """reflections page"""
     return templates.TemplateResponse("reflections/index.html", {"request": request})
+
+
+@router.post("/new")
+async def new_reflection(
+    request: Request,
+    good: str = Form(...),
+    smile: str = Form(...),
+    other: str = Form(...),
+):
+    """Insert new reflection into database"""
+    print(good, smile, other)
+    return {"message": "New reflection created successfully."}
