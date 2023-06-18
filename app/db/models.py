@@ -2,12 +2,8 @@
 
 
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTableUUID
 from sqlalchemy.orm import DeclarativeBase
-
-from app.config.settings import Settings
-
-settings = Settings()
 
 
 class Base(DeclarativeBase):
@@ -16,3 +12,7 @@ class Base(DeclarativeBase):
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     """User model"""
+
+
+class AccessToken(SQLAlchemyBaseAccessTokenTableUUID, Base):
+    """Access token model"""

@@ -1,0 +1,35 @@
+{% extends "authentication/index.html" %} {% block login %}
+
+<div>
+	<h1>Login</h1>
+	<form>
+		<div>
+			<input
+				type="text"
+				placeholder="username"
+				id="username"
+				name="_username"
+				required
+				autofocus
+			/>
+		</div>
+		<div>
+			<input
+				type="password"
+				placeholder="password"
+				id="password"
+				name="_password"
+				required
+			/>
+		</div>
+		<button type="submit">login</button>
+	</form>
+
+	<div>
+		<a href="/sign-up" style="text-decoration: underline; color: black"
+			>New user?</a
+		>
+	</div>
+</div>
+
+{% endblock %}

@@ -3,11 +3,9 @@
     _description_: The books API allows users to create, read, update, and delete books.
 
     """
-from typing import Optional, List, Dict, Any
 
-from fastapi import routing, Depends, HTTPException, status, Request, Form, Response
+from fastapi import routing, Request
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, EmailStr, Field
 
 from app.models.books import NewBook
 
@@ -16,7 +14,7 @@ templates = Jinja2Templates(directory="templates")
 router = routing.APIRouter(prefix="/books", tags=["books"])
 
 
-@router.get("/", operation_id="books")
+@router.get("/")
 async def books(request: Request):
     """books page"""
     return templates.TemplateResponse(
@@ -25,8 +23,12 @@ async def books(request: Request):
     )
 
 
-@router.post("/new")
-async def new_book(name: str = Form(...), author: str = Form(...)):
+@router.post("/new_book", responses={200: {"model": NewBook}})
+async def new_book(request: Request):
     """Insert new book into database"""
-    print(name, author)
-    return {"message": "New book created successfully."}
+    form = await request.form()
+    name = form.get("name")
+    author = form.get("author")
+    if name is None or author is None:
+        return {"message": "Invalid form data"}
+    return NewBook(author=author, name=name)

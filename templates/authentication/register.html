@@ -1,0 +1,53 @@
+{% extends "authentication/index.html" %} {% block login %}
+
+<div>
+	<h1>Register a new user</h1>
+	<form>
+		<div>
+			<input
+				type="text"
+				placeholder="username"
+				id="username"
+				name="_username"
+				required
+				autofocus
+			/>
+		</div>
+		<div>
+			<input
+				type="text"
+				placeholder="email"
+				id="email"
+				name="_email"
+				required
+				autofocus
+			/>
+		</div>
+		<div>
+			<input
+				type="password"
+				placeholder="password"
+				id="password"
+				name="_password"
+				required
+			/>
+		</div>
+		<div>
+			<input
+				type="password"
+				placeholder="password again"
+				id="password-check"
+				name="_password-check"
+				required
+			/>
+		</div>
+		<button type="submit">register</button>
+	</form>
+	<div>
+		<a href="/sign-in" style="text-decoration: underline; color: black"
+			>Already have a user?</a
+		>
+	</div>
+</div>
+
+{% endblock %}

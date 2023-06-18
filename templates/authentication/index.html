@@ -1,13 +1,7 @@
-{% extends "home/index.html" %} {% block login %}
+{% extends "base.html" %} {% block authentication %}
 <div>
-	<h1>Login</h1>
-	<form>
-		<label for="username">Username</label>
-		<input type="text" id="username" name="_username" required autofocus />
-		<label for="password">Password</label>
-		<input type="password" id="password" name="_password" required />
-		<input type="hidden" name="_csrf_token" />
-		<button type="submit">login</button>
-	</form>
+	<h2>Authentication</h2>
+	<div>{% block login %}{% endblock %}</div>
+	<div>{% block register %}{% endblock %}</div>
 </div>
 {% endblock %}
