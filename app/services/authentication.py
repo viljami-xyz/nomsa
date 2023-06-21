@@ -3,7 +3,7 @@
 import uuid
 from typing import Optional, AsyncGenerator
 
-from fastapi import Depends, Request
+from fastapi import Depends, Request, Response
 
 from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin, schemas
 from fastapi_users.db import SQLAlchemyUserDatabase
@@ -17,7 +17,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.settings import async_session_maker
 from app.db.models import AccessToken, User
-
 
 # Database settings and connection.
 
@@ -78,6 +77,16 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret = SECRET
     verification_token_secret = SECRET
 
+    async def on_after_login(
+        self,
+        user: User,
+        request: Optional[Request] = None,
+        response: Optional[Response] = None,
+    ):
+        """Actions after login"""
+        print(f"User {user.id} has logged in.")
+        response.headers["HX-Redirect"] = "/home"
+
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         """Send verification email"""
         print(f"User {user.id} has registered.")
@@ -111,4 +120,5 @@ auth_backend = AuthenticationBackend(
 
 fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])
 
-current_active_user = fastapi_users.current_user(active=True)
+
+current_active_user = fastapi_users.current_user(optional=True, active=True)

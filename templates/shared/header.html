@@ -1,0 +1,28 @@
+{% block header %}
+<div class="header">
+	<div class="navigation">
+		<a href="/books">Books</a>
+		<a href="/reflections">Reflections</a>
+		<a href="/diary">Diary</a>
+	</div>
+	<div class="login-box">
+		<button
+			hx-get="sign-in"
+			hx-trigger="click"
+			hx-target="body"
+			hx-push-url="/"
+		>
+			Log in
+		</button>
+		<button
+			hx-get="sign-out"
+			hx-trigger="click"
+			hx-target="body"
+			hx-push-url="/"
+		>
+			Log out
+		</button>
+	</div>
+</div>
+
+{% endblock %}

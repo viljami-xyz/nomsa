@@ -3,9 +3,7 @@
     _description_: The reflections API allows users to create, read, update, and delete reflections.
 
     """
-from fastapi import routing, Depends, HTTPException, status, Request, Form
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List, Dict, Any
+from fastapi import routing, Request, Form
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="templates")

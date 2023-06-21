@@ -2,13 +2,13 @@
 
 <div>
 	<h1>Login</h1>
-	<form>
+	<form type="submit" hx-post="auth/login" hx-trigger="click" id="login-form">
 		<div>
 			<input
 				type="text"
 				placeholder="username"
 				id="username"
-				name="_username"
+				name="username"
 				required
 				autofocus
 			/>
@@ -18,7 +18,7 @@
 				type="password"
 				placeholder="password"
 				id="password"
-				name="_password"
+				name="password"
 				required
 			/>
 		</div>
