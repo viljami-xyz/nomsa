@@ -1,28 +1,38 @@
 {% block header %}
 <div class="header">
 	<div class="navigation">
+		{% if user %}
 		<a href="/books">Books</a>
 		<a href="/reflections">Reflections</a>
 		<a href="/diary">Diary</a>
+		{% endif %}
 	</div>
 	<div class="login-box">
-		<button
-			hx-get="sign-in"
-			hx-trigger="click"
-			hx-target="body"
-			hx-push-url="/"
-		>
+		{% if not user %}
+		<button hx-get="/login" hx-trigger="click" hx-target="body" hx-push-url="/">
 			Log in
 		</button>
+		{% else %}
 		<button
-			hx-get="sign-out"
+			hx-post="/auth/logout"
 			hx-trigger="click"
 			hx-target="body"
 			hx-push-url="/"
 		>
 			Log out
 		</button>
+		{% endif %}
 	</div>
 </div>
+
+<script>
+	document.addEventListener("htmx:afterRequest", function (event) {
+		if (event.detail.requestConfig.path === "/auth/logout") {
+			if (event.detail.xhr.status === 204) {
+				window.location.href = "/";
+			}
+		}
+	});
+</script>
 
 {% endblock %}

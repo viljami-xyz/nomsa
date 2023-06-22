@@ -85,7 +85,6 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     ):
         """Actions after login"""
         print(f"User {user.id} has logged in.")
-        response.headers["HX-Redirect"] = "/home"
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         """Send verification email"""
@@ -121,4 +120,4 @@ auth_backend = AuthenticationBackend(
 fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])
 
 
-current_active_user = fastapi_users.current_user(optional=True, active=True)
+current_active_user = fastapi_users.current_user(optional=False, active=True)

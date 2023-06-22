@@ -2,7 +2,7 @@
 
 <div>
 	<h1>Login</h1>
-	<form type="submit" hx-post="auth/login" hx-trigger="click" id="login-form">
+	<form>
 		<div>
 			<input
 				type="text"
@@ -22,14 +22,37 @@
 				required
 			/>
 		</div>
-		<button type="submit">login</button>
+		<button
+			type="submit"
+			hx-post="/auth/login"
+			hx-trigger="click"
+			hx-target="#login-result"
+			id="login-form"
+		>
+			login
+		</button>
 	</form>
 
 	<div>
-		<a href="/sign-up" style="text-decoration: underline; color: black"
+		<a href="/register" style="text-decoration: underline; color: black"
 			>New user?</a
 		>
 	</div>
+	<div id="login-result"></div>
 </div>
+
+<script>
+	document.addEventListener("htmx:afterRequest", function (event) {
+		if (event.detail.requestConfig.path === "/auth/login") {
+			if (event.detail.xhr.status === 204) {
+				window.location.href = "/home";
+			} else if (event.detail.xhr.status === 400) {
+				var loginResult = document.getElementById("login-result");
+				loginResult.textContent =
+					"Login failed. Please check your credentials.";
+			}
+		}
+	});
+</script>
 
 {% endblock %}

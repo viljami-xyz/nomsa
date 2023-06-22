@@ -3,9 +3,10 @@
     _description_: The books API allows users to create, read, update, and delete books.
 
     """
-from fastapi import routing, Depends, HTTPException, status, Request
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List, Dict, Any
+from fastapi import routing, Request, Depends
+
+from app.db.models import User
+from app.services.authentication import current_active_user
 
 from fastapi.templating import Jinja2Templates
 
@@ -17,6 +18,8 @@ router.get("/")
 
 
 @router.get("/", operation_id="diary")
-async def diary(request: Request):
+async def diary(request: Request, user: User = Depends(current_active_user)):
     """diary page"""
-    return templates.TemplateResponse("diary/index.html", {"request": request})
+    return templates.TemplateResponse(
+        "diary/index.html", {"request": request, "user": user}
+    )

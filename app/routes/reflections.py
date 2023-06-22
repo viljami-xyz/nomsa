@@ -3,8 +3,10 @@
     _description_: The reflections API allows users to create, read, update, and delete reflections.
 
     """
-from fastapi import routing, Request, Form
+from fastapi import routing, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
+from app.db.models import User
+from app.services.authentication import current_active_user
 
 templates = Jinja2Templates(directory="templates")
 
@@ -13,9 +15,11 @@ router = routing.APIRouter(prefix="/reflections", tags=["reflections"])
 
 
 @router.get("/", operation_id="reflections")
-async def reflections(request: Request):
+async def reflections(request: Request, user: User = Depends(current_active_user)):
     """reflections page"""
-    return templates.TemplateResponse("reflections/index.html", {"request": request})
+    return templates.TemplateResponse(
+        "reflections/index.html", {"request": request, "user": user}
+    )
 
 
 @router.post("/new")
@@ -24,6 +28,7 @@ async def new_reflection(
     good: str = Form(...),
     smile: str = Form(...),
     other: str = Form(...),
+    user: User = Depends(current_active_user),
 ):
     """Insert new reflection into database"""
     print(good, smile, other)
