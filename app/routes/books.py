@@ -8,6 +8,7 @@ from fastapi import routing, Request, Depends
 from fastapi.templating import Jinja2Templates
 
 from app.models.books import NewBook
+from app.models.utils import as_form
 from app.db.models import User
 from app.services.authentication import current_active_user
 
@@ -25,12 +26,15 @@ async def books(request: Request, user: User = Depends(current_active_user)):
     )
 
 
-@router.post("/new_book", responses={200: {"model": NewBook}})
-async def new_book(request: Request, user: User = Depends(current_active_user)):
+@router.post("/new", responses={200: {"model": NewBook}})
+async def new_book(
+    request: Request,
+    form: NewBook = Depends(NewBook.as_form),
+    user: User = Depends(current_active_user),
+):
     """Insert new book into database"""
-    form = await request.form()
-    name = form.get("name")
-    author = form.get("author")
+    name = form.name
+    author = form.author
     if name is None or author is None:
         return {"message": "Invalid form data"}
     return NewBook(author=author, name=name)
