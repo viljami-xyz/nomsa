@@ -31,13 +31,19 @@ cookie_transport = CookieTransport()
 class UserRead(schemas.BaseUser[uuid.UUID]):
     """User read class"""
 
+    username: str
+
 
 class UserCreate(schemas.BaseUserCreate):
     """User create class"""
 
+    username: str
+
 
 class UserUpdate(schemas.BaseUserUpdate):
     """User update class"""
+
+    username: str
 
 
 # Dependencies

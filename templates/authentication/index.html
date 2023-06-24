@@ -1,6 +1,11 @@
 {% extends "base.html" %} {% block authentication %}
 <div>
-	<h2>Authentication</h2>
+	<div>
+		<button hx-get="/register" hx-trigger="click" hx-target="body">
+			Create user
+		</button>
+		<button hx-get="/login" hx-trigger="click" hx-target="body">Login</button>
+	</div>
 	<div>{% block login %}{% endblock %}</div>
 	<div>{% block register %}{% endblock %}</div>
 </div>

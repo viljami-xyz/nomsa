@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 # in-app imports
-from app.routes import authentication, home, books, diary, reflections
+from app.routes import authentication, home, books, diary, reflections, validate
 from app.routes.exception_handlers import (
     starlette_exception_handler,
     http_exception_handler,
@@ -35,6 +35,7 @@ app.include_router(authentication.router)
 app.include_router(books.router)
 app.include_router(diary.router)
 app.include_router(reflections.router)
+app.include_router(validate.router)
 
 # Authentication
 app.include_router(
@@ -67,6 +68,7 @@ app.include_router(
 
 app.add_exception_handler(StarletteHTTPException, starlette_exception_handler)
 app.add_exception_handler(HTTPException, http_exception_handler)
+# app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
 

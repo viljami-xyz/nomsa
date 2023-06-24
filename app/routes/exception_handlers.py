@@ -25,12 +25,6 @@ async def http_exception_handler(request, exc):
     return JSONResponse({"error": "Something went wrong"}, status_code=exc.status_code)
 
 
-async def validation_exception_handler(request, exc):
-    """Exception handler for RequestValidationError"""
-    print("validation exception handler", exc.status_code)
-    return JSONResponse({"error": "Validation error"}, status_code=400)
-
-
 async def starlette_exception_handler(request, exc):
     """Exception handler for StarletteHTTPException"""
     print("starlette exception handler", exc.status_code)
@@ -44,3 +38,12 @@ async def starlette_exception_handler(request, exc):
         )
     # Handle other HTTPExceptions if needed
     return JSONResponse({"error": "Something went wrong"}, status_code=500)
+
+
+async def validation_exception_handler(request, exc):
+    """Exception handler for RequestValidationError"""
+    error_messages = []
+    for error in exc.errors():
+        error_messages.append({"field": error["loc"][0], "message": error["msg"]})
+
+    return JSONResponse(status_code=400, content={"detail": error_messages})

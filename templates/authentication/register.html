@@ -1,14 +1,16 @@
 {% extends "authentication/index.html" %} {% block login %}
 
-<div>
+
+<div x-data="{ formData: {} }">
 	<h1>Register a new user</h1>
-	<form>
+	<form @submit.prevent="submitForm">
 		<div>
 			<input
 				type="text"
 				placeholder="username"
 				id="username"
-				name="_username"
+				name="username"
+				x-model="formData.username"
 				required
 				autofocus
 			/>
@@ -18,36 +20,47 @@
 				type="text"
 				placeholder="email"
 				id="email"
-				name="_email"
+				name="email"
+				hx-post="/validate/email"
+				hx-trigger="keyup changed delay:500ms"
+				hx-target="#email-result"
+				x-model="formData.email"
 				required
 				autofocus
 			/>
+			<div id="email-result"></div>
 		</div>
 		<div>
 			<input
 				type="password"
 				placeholder="password"
 				id="password"
-				name="_password"
+				name="password"
+				hx-post="/validate/password"
+				hx-trigger="keyup changed delay:500ms"
+				hx-target="#password-result"
+				x-model="formData.password"
 				required
 			/>
+			<div id="password-result"></div>
 		</div>
 		<div>
 			<input
 				type="password"
 				placeholder="password again"
-				id="password-check"
-				name="_password-check"
+				id="password_confirm"
+				name="password_confirm"
+				hx-post="/validate/password-confirm"
+				hx-trigger="keyup changed delay:500ms"
+				hx-target="#password-confirm-result"
 				required
 			/>
+			<div id="password-confirm-result"></div>
 		</div>
-		<button type="register-user">register</button>
+		<button type="submit"">register</button>
 	</form>
-	<div>
-		<a href="/sign-in" style="text-decoration: underline; color: black"
-			>Already have a user?</a
-		>
-	</div>
 </div>
 
+
+<script src="/static/js/modules/register.js"></script>
 {% endblock %}
