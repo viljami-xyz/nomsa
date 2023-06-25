@@ -2,12 +2,7 @@
 <div>
 	<h1>Books</h1>
 	<div class="add-new-book">
-		<form
-			id="NewBook"
-			hx-post="/books/new"
-			hx-target="#result"
-			hx-ext="json-enc"
-		>
+		<form id="NewBook" hx-post="/books/new" hx-target="#booklist">
 			<input
 				type="text"
 				name="name"
@@ -24,5 +19,6 @@
 		</form>
 		<div id="result"></div>
 	</div>
+	<div id="booklist">{% include "books/bookList.html" %}</div>
 </div>
 {% endblock %}

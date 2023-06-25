@@ -1,0 +1,19 @@
+<div>
+	<div>
+		<div class="book-name">{{ book.name }}</div>
+		<div class="book-author">{{ book.author }}</div>
+	</div>
+	<div class="book-actions">
+		<a hx-get="/books/{{ book.book_id }}">Show</a>
+		<a hx-get="/books/{{ book.book_id }}/edit">Edit</a>
+		<a
+			hx-delete="/books/{{ book.book_id }}"
+			hx-target="#booklist"
+			hx-confirm="Are you sure?"
+			hx-swap="innerHTML"
+			hx-trigger="click"
+		>
+			Delete
+		</a>
+	</div>
+</div>

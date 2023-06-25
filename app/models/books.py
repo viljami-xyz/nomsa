@@ -8,7 +8,7 @@ from app.models.utils import as_form
 
 
 @as_form
-class NewBook(BaseModel):
+class BookModel(BaseModel):
     """_summary_: This class defines the model for new books."""
 
     author: str = Field(..., title="Author", description="Author of the book.")

@@ -25,3 +25,42 @@
 .login-box {
     margin-left: auto;
 }
+
+
+.books {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center
+}
+
+.book-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.book-actions a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: purple;
+    margin: 0 3px;
+    padding: 1px
+}
+
+.book-actions a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: purple;
+    padding: 0px;
+    border: 1px solid purple;
+}
