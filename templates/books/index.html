@@ -1,22 +1,29 @@
 {% extends "home/index.html" %} {% block books %}
 <div>
-	<h1>Books</h1>
-	<div class="add-new-book">
-		<form id="NewBook" hx-post="/books/new" hx-target="#booklist">
-			<input
-				type="text"
-				name="name"
-				placeholder="Name"
-				style="height: 35px; width: 150px"
-			/>
-			<input
-				type="text"
-				name="author"
-				placeholder="Author"
-				style="height: 35px; width: 150px"
-			/>
-			<input type="submit" value="New book" style="height: 40px" />
-		</form>
+	<div class="items-center justify-center grid">
+		<h1 class="text-orange-400 font-mono">Books</h1>
+		<div class="add-new-book">
+			<form id="NewBook" hx-post="/books/new" hx-target="#booklist">
+				<input
+					class="border-2 border-orange-400 rounded-md text-center h-10 w-40"
+					type="text"
+					name="name"
+					placeholder="Name"
+				/>
+				<input
+					class="border-2 border-orange-400 rounded-md text-center h-10 w-40"
+					type="text"
+					name="author"
+					placeholder="Author"
+				/>
+				<input
+					class="bg-orange-400 rounded-md text-center h-10 w-36 text-white"
+					class="border"
+					type="submit"
+					value="New book"
+				/>
+			</form>
+		</div>
 		<div id="result"></div>
 	</div>
 	<div id="booklist">{% include "books/bookList.html" %}</div>
