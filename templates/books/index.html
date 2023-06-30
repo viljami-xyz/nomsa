@@ -3,7 +3,7 @@
 	<div class="items-center justify-center grid">
 		<h1 class="text-orange-400 font-mono">Books</h1>
 		<div class="add-new-book">
-			<form id="NewBook" hx-post="/books/new" hx-target="#booklist">
+			<form id="NewBook" hx-post="/books/new" hx-target="#book-view">
 				<input
 					class="border-2 border-orange-400 rounded-md text-center h-10 w-40"
 					type="text"
@@ -20,12 +20,13 @@
 					class="bg-orange-400 rounded-md text-center h-10 w-36 text-white"
 					class="border"
 					type="submit"
-					value="New book"
+					value="Add book"
 				/>
 			</form>
 		</div>
-		<div id="result"></div>
 	</div>
-	<div id="booklist">{% include "books/bookList.html" %}</div>
+	<div id="book-view">
+		<div>{% include "books/bookList.html" %}</div>
+	</div>
 </div>
 {% endblock %}

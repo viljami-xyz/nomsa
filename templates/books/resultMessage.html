@@ -1,0 +1,9 @@
+{% set success = "bg-green-400" %} {% set error = "bg-red-400" %} {% set missing
+= "bg-yellow-400" %} {% set colors = {"success":success,
+"error":error,"missing":missing,} %} {% set tail = colors.get(message.status,
+missing) %}
+
+<div class="rounded text-white m-2  p-2 flex {{ tail }}">
+	<div>{{ message.text }}</div>
+	<button class="ml-auto">close</button>
+</div>

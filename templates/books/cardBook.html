@@ -1,0 +1,14 @@
+<div class="border-orange-500 rounded-md border-2 p-5">
+	<div>
+		<div class="book-name">{{ book.name }}</div>
+		<div class="book-author">{{ book.author }}</div>
+	</div>
+	<div class="">
+		<a
+			class="cursor-pointer text-orange-600 hover:underline"
+			hx-get="/books/{{ book.book_id }}"
+			hx-target="#book-view"
+			>Show</a
+		>
+	</div>
+</div>

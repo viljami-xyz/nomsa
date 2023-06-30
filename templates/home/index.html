@@ -1,14 +1,14 @@
 {% extends "base.html" %} {% block home %}
 
-<div class="home">
+<div class="home" id="home">
 	<!-- <img
 		src="/static/images/nomsa-logo.png"
 		alt="Nomsa Logo"
 		style="height: 100px; width: auto"
 	/> -->
-	<div>{% block reflections %} {% endblock %}</div>
-	<div>{% block books %} {% endblock %}</div>
-	<div>{% block diary %} {% endblock %}</div>
+	<div id="reflections">{% block reflections %} {% endblock %}</div>
+	<div id="books">{% block books %} {% endblock %}</div>
+	<div id="diary">{% block diary %} {% endblock %}</div>
 	<footer></footer>
 </div>
 {% endblock %}

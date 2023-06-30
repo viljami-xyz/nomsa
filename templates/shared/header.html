@@ -1,15 +1,26 @@
 {% block header %}
-<div class="header">
+<div
+	class="bg-orange-500 text-white flex p-4 text-center shadow-lg justify-between mb-10"
+>
 	<div class="navigation">
 		{% if user %}
-		<a href="/books">Books</a>
-		<a href="/reflections">Reflections</a>
-		<a href="/diary">Diary</a>
+		<a href="/books"
+		class="hover:underline">Books</a>
+		<a href="/reflections"
+		class="hover:underline">Reflections</a>
+		<a href="/diary"
+		class="hover:underline">Diary</a>
 		{% endif %}
 	</div>
-	<div class="login-box">
+	<div class="ml-auto">
 		{% if not user %}
-		<button hx-get="/login" hx-trigger="click" hx-target="body" hx-push-url="/">
+		<button
+			hx-get="/login"
+			hx-trigger="click"
+			hx-target="body"
+			hx-push-url="/"
+			class="hover:underline"
+		>
 			Log in
 		</button>
 		{% else %}
@@ -18,7 +29,8 @@
 			hx-trigger="click"
 			hx-target="body"
 			hx-push-url="/"
-		>
+			class="hover:underline"
+		></button>
 			Log out
 		</button>
 		{% endif %}

@@ -2,6 +2,7 @@
 _description_: The books API allows users to create, read, update, and delete books.
     """
 
+
 from pydantic import BaseModel, Field
 
 from app.models.utils import as_form
@@ -13,3 +14,7 @@ class BookModel(BaseModel):
 
     author: str = Field(..., title="Author", description="Author of the book.")
     name: str = Field(..., title="Name", description="Name of the book.")
+    type_of: str = Field("kindle", title="Type", description="Type of the book.")
+    state: str = Field(
+        "unread", title="State", description="Reading state of the book."
+    )
