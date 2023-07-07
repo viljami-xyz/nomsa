@@ -51,7 +51,7 @@ async def new_book(
         {
             "request": request,
             "books": user_books,
-            "message": {"status": "success", "text": "Book added successfully!"},
+            "message": {"status": "add", "text": "Book added successfully!"},
         },
     )
 
@@ -76,7 +76,11 @@ async def delete_book_from_db(
     user_books = await get_books(user.id)
     return templates.TemplateResponse(
         "books/bookList.html",
-        {"request": request, "books": user_books},
+        {
+            "request": request,
+            "books": user_books,
+            "message": {"status": "delete", "text": "Book deleted successfully!"},
+        },
     )
 
 
@@ -108,3 +112,11 @@ async def update_book_state(
     book = await set_book_state(state=state, book_id=book_id, user_id=user.id)
 
     return HTMLResponse(f"State: {book.state}", status_code=200)
+
+
+@router.post("/close-message")
+async def close_result_message(
+    request: Request, user: User = Depends(current_active_user)
+):
+    """Close result message"""
+    return templates.TemplateResponse("books/resultMessage.html", {"request": request})

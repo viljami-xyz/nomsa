@@ -1,8 +1,8 @@
 <div>
-	{% if message %}
-	<div id="resultMessage">{% include "books/resultMessage.html" %}</div>
-	{% endif %}
+	<div id="resultMessage" class="transition-opacity">{% include "books/resultMessage.html" %}</div>
+	{% if books %}
 	<div id="booklist" class="grid-cols-3 grid gap-3 mt-5">
 		{% for book in books %} {% include "books/cardBook.html" %} {% endfor %}
 	</div>
+	{% endif %}
 </div>

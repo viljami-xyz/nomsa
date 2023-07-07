@@ -6,7 +6,6 @@ _type_
     _description_
 """
 
-import json
 from typing import List
 
 import openai
