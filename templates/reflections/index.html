@@ -1,41 +1,57 @@
 {% extends "home/index.html" %} {% block reflections %}
 
-<div>
+
+
+<div class="w-80" hx-get="/reflections/question" hx-trigger="load" hx-target="#questionInput">
 	<form action="/new" method="post">
 		<div>
-			<p>What good happened today?</p>
-			<input
-				type="text"
-				name="good"
-				placeholder=""
-				style="height: 35px; width: 250px"
-			/>
-			<p>Did something make you smile?</p>
-			<input
-				type="text"
-				name="smile"
-				placeholder=""
-				style="height: 35px; width: 250px"
-			/>
-			<p>Is there anything you would've done other way?</p>
-			<input
-				type="text"
-				name="other"
-				placeholder=""
-				style="height: 35px; width: 250px"
-			/>
-		</div>
-		<div style="align-items: center; justify-content: center">
-			<button
-				type="submit"
-				hx-post="new"
-				hx-trigger="click"
-				hx-target="#reflectionList"
-			>
-				Insert reflection
-			</button>
-		</div>
-		<div id="reflectionList"></div>
+			<div class="rounded-xl bg-white h-12 flex">
+				<div id="questionInput"></div>
+				<button class="ml-auto pr-2 mb-1 text-gray-500">></button>
+			</div>
+
+
+			<div class="justify-center">
+				<button type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
+					Insert reflection
+				</button>
+			</div>
+			<div id="reflectionList"></div>
 	</form>
+	<div id="reflection-list" class="flex flex-row flex-wrap gap-1">
+		{% for question in questions %}
+		<div class="bg-white rounded text-xs py-0.5 px-1" data-question-id="{{ question.id }}">
+			<p>{{ question.text }}</p>
+		</div>
+		{% endfor %}
+	</div>
 </div>
+
+<script>
+	const inputField = document.getElementById("questionInput");
+	const reflectionList = document.getElementById("reflection-list");
+
+	reflectionList.addEventListener("click", function (event) {
+		if (event.target.tagName === "DIV") {
+			const questionId = event.target.dataset.questionId;
+			const questionText = event.target.querySelector("p").textContent;
+
+			inputField.dataset.questionId = questionId;
+			inputField.placeholder = questionText;
+			inputField.value = "";
+		}
+	});
+
+	inputField.addEventListener("keyup", function (event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+
+			const questionId = inputField.dataset.questionId;
+			// Do something with the question ID
+
+			inputField.value = "";
+		}
+	});
+</script>
+
 {% endblock %}

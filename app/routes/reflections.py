@@ -13,12 +13,19 @@ templates = Jinja2Templates(directory="templates")
 
 router = routing.APIRouter(prefix="/reflections", tags=["reflections"])
 
+QUESTIONS = [
+    {"id": "0", "text": "What good happened today?"},
+    {"id": "1", "text": "Appreciation moment?"},
+    {"id": "2", "text": "What would you change?"},
+]
+
 
 @router.get("/", operation_id="reflections")
 async def reflections(request: Request, user: User = Depends(current_active_user)):
     """reflections page"""
     return templates.TemplateResponse(
-        "reflections/index.html", {"request": request, "user": user}
+        "reflections/index.html",
+        {"request": request, "user": user, "questions": QUESTIONS},
     )
 
 
@@ -33,3 +40,16 @@ async def new_reflection(
     """Insert new reflection into database"""
     print(good, smile, other)
     return {"message": "New reflection created successfully."}
+
+
+@router.get("/question")
+async def get_question(
+    request: Request,
+    q_number: int = Form(0, title="Reflection Question"),
+    _user: User = Depends(current_active_user),
+):
+    """Get a random question from the database"""
+    question = QUESTIONS[q_number]
+    return templates.TemplateResponse(
+        "reflections/questionInput.html", {"request": request, "question": question}
+    )

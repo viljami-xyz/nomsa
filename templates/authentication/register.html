@@ -4,61 +4,45 @@
 <div x-data="{ formData: {} }">
 	<h1>Register a new user</h1>
 	<form @submit.prevent="submitForm">
-		<div>
-			<input
-				type="text"
-				placeholder="username"
-				id="username"
-				name="username"
-				x-model="formData.username"
-				required
-				autofocus
-			/>
+		<div class="mb-2">
+			<input class="pl-2 bg-gray-100 border-2 p-0.5 rounded focus:border-gray-500 focus:outline-none focus:ring-0"
+				type="text" placeholder="username" id="username" name="username" x-model="formData.username" required
+				autofocus />
 		</div>
-		<div>
+		<div class="mb-2">
 			<input
-				type="text"
-				placeholder="email"
-				id="email"
-				name="email"
-				hx-post="/validate/email"
-				hx-trigger="keyup changed delay:500ms"
-				hx-target="#email-result"
-				x-model="formData.email"
-				required
-				autofocus
-			/>
+				class="pl-2  bg-gray-100 border-2 p-0.5 rounded focus:border-gray-500 focus:outline-none focus:ring-0"
+				type="text" placeholder="email" id="email" name="email" hx-post="/validate/email"
+				hx-trigger="keyup changed delay:500ms" hx-target="#email-result" x-model="formData.email" required
+				autofocus />
 			<div id="email-result"></div>
 		</div>
-		<div>
+		<div class="mb-2">
 			<input
-				type="password"
-				placeholder="password"
-				id="password"
-				name="password"
-				hx-post="/validate/password"
-				hx-trigger="keyup changed delay:500ms"
-				hx-target="#password-result"
-				x-model="formData.password"
-				required
-			/>
+				class="pl-2  bg-gray-100 border-2 p-0.5 rounded focus:border-gray-500 focus:outline-none focus:ring-0"
+				type="password" placeholder="password" id="password" name="password" hx-post="/validate/password"
+				hx-trigger="keyup changed delay:500ms" hx-target="#password-result" x-model="formData.password"
+				required />
 			<div id="password-result"></div>
 		</div>
-		<div>
+		<div class="mb-3">
 			<input
-				type="password"
-				placeholder="password again"
-				id="password_confirm"
-				name="password_confirm"
-				hx-post="/validate/password-confirm"
-				hx-trigger="keyup changed delay:500ms"
-				hx-target="#password-confirm-result"
-				required
-			/>
+				class="pl-2  bg-gray-100 border-2 p-0.5 rounded focus:border-gray-500 focus:outline-none focus:ring-0"
+				type="password" placeholder="password again" id="password_confirm" name="password_confirm"
+				hx-post="/validate/password-confirm" hx-trigger="keyup changed delay:500ms"
+				hx-target="#password-confirm-result" required />
 			<div id="password-confirm-result"></div>
 		</div>
-		<button type="submit"">register</button>
+
+		<button
+			class="flex items-center justify-center text-md  bg-orange-500 text-white  py-1 w-full hover:bg-orange-400 active:bg-orange-300"
+			type="submit"">register</button>
 	</form>
+	<div class=" mt-2 flex flex-row gap-x-2 text-sm">
+			<p>Already have a user? </p>
+			<button class=" text-orange-500 hover:underline" hx-get="/login" hx-trigger="click" hx-target="body"
+				hx-push-url="/login">Login</button>
+</div>
 </div>
 
 

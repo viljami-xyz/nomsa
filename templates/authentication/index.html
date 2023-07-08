@@ -1,13 +1,5 @@
 {% extends "base.html" %} {% block authentication %}
-<div>
-	<div class="">
-		<button class="text-orange-500 hover:underline" hx-get="/register" hx-trigger="click" hx-target="body"
-			hx-push-url="/register">
-			Create user
-		</button>
-		<button class="text-orange-500 hover:underline" hx-get="/login" hx-trigger="click" hx-target="body"
-			hx-push-url="/login">Login</button>
-	</div>
+<div class="mt-10">
 	<div>{% block login %}{% endblock %}</div>
 	<div>{% block register %}{% endblock %}</div>
 </div>

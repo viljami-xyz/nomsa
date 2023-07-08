@@ -1,10 +1,14 @@
 {% block header %}
-<div class="bg-orange-500 text-white flex p-4 text-center shadow-lg justify-between mb-10">
-	<div class="navigation">
+<div
+	class="bg-orange-500 text-white flex p-3 text-center shadow-lg justify-between mb-5 items-center  fixed top-0 inset-x-0">
+	<div>
+		<a href="/" class="hover:text-orange-100 active:text-orange-300 text-lg ">Nomsa</a>
+	</div>
+	<div class="flex flex-row gap-x-3 ml-auto text-center">
 		{% if user %}
-		<a href="/books" class="hover:underline">Books</a>
-		<a href="/reflections" class="hover:underline">Reflections</a>
-		<a href="/diary" class="hover:underline">Diary</a>
+		<a href="/books" class="hover:text-orange-100 active:text-orange-300 ">Books</a>
+		<a href="/reflections" class="hover:text-orange-100 active:text-orange-300 ">Reflections</a>
+		<a href="/diary" class="hover:text-orange-100 active:text-orange-300 ">Diary</a>
 		{% endif %}
 	</div>
 	<div class="ml-auto">
