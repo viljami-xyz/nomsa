@@ -2,56 +2,30 @@
 
 
 
-<div class="w-80" hx-get="/reflections/question" hx-trigger="load" hx-target="#questionInput">
+<div class="w-80" hx-get="/reflections/question/0" hx-trigger="load" hx-target="#questionInput">
 	<form action="/new" method="post">
 		<div>
 			<div class="rounded-xl bg-white h-12 flex">
 				<div id="questionInput"></div>
-				<button class="ml-auto pr-2 mb-1 text-gray-500">></button>
-			</div>
-
-
-			<div class="justify-center">
-				<button type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
-					Insert reflection
+				<button class="ml-auto pr-2  text-gray-500">
+					<i class="fas fa-chevron-right text-orange-500"></i>
 				</button>
 			</div>
-			<div id="reflectionList"></div>
+
+
 	</form>
-	<div id="reflection-list" class="flex flex-row flex-wrap gap-1">
+	<div id="reflection-list" class="flex flex-row flex-wrap mt-2 gap-1 ">
 		{% for question in questions %}
-		<div class="bg-white rounded text-xs py-0.5 px-1" data-question-id="{{ question.id }}">
+		<div class="bg-white rounded text-xs py-0.5 px-1 cursor-pointer m-1" data-question-id={{ question.id }}
+			hx-get="/reflections/question/{{ question.id }}">
 			<p>{{ question.text }}</p>
 		</div>
 		{% endfor %}
 	</div>
+	<div class="items-center text-center">
+		<button type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
+			Finish
+		</button>
+	</div>
 </div>
-
-<script>
-	const inputField = document.getElementById("questionInput");
-	const reflectionList = document.getElementById("reflection-list");
-
-	reflectionList.addEventListener("click", function (event) {
-		if (event.target.tagName === "DIV") {
-			const questionId = event.target.dataset.questionId;
-			const questionText = event.target.querySelector("p").textContent;
-
-			inputField.dataset.questionId = questionId;
-			inputField.placeholder = questionText;
-			inputField.value = "";
-		}
-	});
-
-	inputField.addEventListener("keyup", function (event) {
-		if (event.key === "Enter") {
-			event.preventDefault();
-
-			const questionId = inputField.dataset.questionId;
-			// Do something with the question ID
-
-			inputField.value = "";
-		}
-	});
-</script>
-
 {% endblock %}

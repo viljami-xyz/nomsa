@@ -42,14 +42,15 @@ async def new_reflection(
     return {"message": "New reflection created successfully."}
 
 
-@router.get("/question")
+@router.get("/question/{question_id}")
 async def get_question(
     request: Request,
-    q_number: int = Form(0, title="Reflection Question"),
+    question_id: int = 0,
     _user: User = Depends(current_active_user),
 ):
     """Get a random question from the database"""
-    question = QUESTIONS[q_number]
+    question = QUESTIONS[int(question_id)]
+    print(question)
     return templates.TemplateResponse(
         "reflections/questionInput.html", {"request": request, "question": question}
     )
