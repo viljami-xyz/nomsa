@@ -30,9 +30,9 @@ async def starlette_exception_handler(request, exc):
     if exc.status_code == 401:
         return templates.TemplateResponse(
             "authentication/login.html",
-            {"request": request},
+            context={"request": request},
             status_code=exc.status_code,
-            headers={"HX-Target": "body"},
+            headers={"HX-Redirect": "/login"},
         )
     if exc.status_code == 404:
         return templates.TemplateResponse(

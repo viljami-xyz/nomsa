@@ -12,7 +12,7 @@ from app.services.authentication import fastapi_users
 
 templates = Jinja2Templates(directory="templates")
 
-router = routing.APIRouter(tags=["login", "register"])
+router = routing.APIRouter()
 current_active_user = fastapi_users.current_user(optional=True)
 
 
@@ -20,7 +20,7 @@ current_active_user = fastapi_users.current_user(optional=True)
 def login(request: Request, user: User = Depends(current_active_user)):
     """Login a user"""
     if user:
-        return RedirectResponse("/home")
+        return RedirectResponse("/")
     return templates.TemplateResponse("authentication/login.html", {"request": request})
 
 
@@ -28,7 +28,7 @@ def login(request: Request, user: User = Depends(current_active_user)):
 def register(request: Request, user: User = Depends(current_active_user)):
     """Register a user page"""
     if user:
-        return RedirectResponse("/home")
+        return RedirectResponse("/")
     return templates.TemplateResponse(
         "authentication/register.html", {"request": request}
     )

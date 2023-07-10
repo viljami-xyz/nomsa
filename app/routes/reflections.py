@@ -11,7 +11,7 @@ from app.services.authentication import current_active_user
 templates = Jinja2Templates(directory="templates")
 
 
-router = routing.APIRouter(prefix="/reflections", tags=["reflections"])
+router = routing.APIRouter()
 
 QUESTIONS = [
     {"id": "0", "text": "What good happened today?"},
@@ -54,3 +54,15 @@ async def get_question(
     return templates.TemplateResponse(
         "reflections/questionInput.html", {"request": request, "question": question}
     )
+
+
+@router.post("/question/{question_id}")
+async def answer_question(
+    request: Request,
+    question_id: int = 0,
+    answer: str = Form(...),
+    _user: User = Depends(current_active_user),
+):
+    """Insert new reflection into database"""
+    print(question_id, answer)
+    return {"message": "New reflection created successfully."}

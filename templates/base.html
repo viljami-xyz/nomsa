@@ -18,8 +18,11 @@
 
 <body style="background-color: #F8F3F3;">
 	<div class="">{% include "shared/header.html" %}</div>
-	<div class="mt-24">{% block home %} {% endblock %}</div>
-	<div class="home">{% block authentication %} {% endblock %}</div>
+	<div class="flex flex-col items-center">
+		<img src="/static/images/nomsa-logo.png" alt="Nomsa Logo" class="h-20 w-auto mb-6 mt-20" />
+		{% block reflections %} {% endblock %}
+		{% block authentication %} {% endblock %}
+	</div>
 </body>
 
 </html>

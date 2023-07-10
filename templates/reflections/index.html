@@ -1,8 +1,8 @@
-{% extends "home/index.html" %} {% block reflections %}
+{% extends "base.html" %} {% block reflections %}
 
 
 
-<div class="w-80" hx-get="/reflections/question/0" hx-trigger="load" hx-target="#questionInput">
+<div class="w-80" hx-get="/question/0" hx-trigger="load" hx-target="#questionInput">
 	<form action="/new" method="post">
 		<div>
 			<div class="rounded-xl bg-white h-12 flex">
@@ -14,18 +14,25 @@
 
 
 	</form>
-	<div id="reflection-list" class="flex flex-row flex-wrap mt-2 gap-1 ">
+	<div id="reflection-list" class="flex flex-row flex-wrap mt-2  ">
 		{% for question in questions %}
 		<div class="bg-white rounded text-xs py-0.5 px-1 cursor-pointer m-1" data-question-id={{ question.id }}
-			hx-get="/reflections/question/{{ question.id }}">
+			hx-get="/question/{{ question.id }}">
 			<p>{{ question.text }}</p>
 		</div>
 		{% endfor %}
 	</div>
-	<div class="items-center text-center">
-		<button type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
+	<div class="flex items-center justify-center mt-6 ">
+		<button
+			class="flex flex-col items-center bg-red-500 hover:bg-red-400 active:bg-red-300 opacity-50 px-6 py-2 rounded-lg text-white"
+			type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
 			Finish
+			<i class="fas fa-chevron-down text-white -mt-1"></i>
 		</button>
 	</div>
 </div>
+
+<script>
+
+</script>
 {% endblock %}

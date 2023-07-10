@@ -1,24 +1,10 @@
 {% block header %}
-<div
-	class="bg-orange-500 text-white flex p-3 text-center shadow-lg justify-between mb-5 items-center  fixed top-0 inset-x-0">
-	<div>
-		<a href="/" class="hover:text-orange-100 active:text-orange-300 text-lg ">Nomsa</a>
-	</div>
-	<div class="flex flex-row gap-x-3 ml-auto text-center">
-		{% if user %}
-		<a href="/books" class="hover:text-orange-100 active:text-orange-300 ">Books</a>
-		<a href="/reflections" class="hover:text-orange-100 active:text-orange-300 ">Reflections</a>
-		<a href="/diary" class="hover:text-orange-100 active:text-orange-300 ">Diary</a>
-		{% endif %}
-	</div>
+<div class="text-orange-500 flex p-3 text-center mb-2 items-center  fixed top-0 inset-x-0">
 	<div class="ml-auto">
-		{% if not user %}
-		<button hx-get="/login" hx-trigger="click" hx-target="body" hx-push-url="/" class="hover:underline">
-			Log in
-		</button>
-		{% else %}
-		<button hx-post="/auth/logout" hx-trigger="click" hx-target="body" hx-push-url="/" class="hover:underline">
-			Log out
+		{% if user %}
+		<button hx-post="/auth/logout" hx-trigger="click" hx-target="body" hx-push-url="/"
+			class="hover:bg-orange-100 p-1 rounded">
+			<i class="fas fa-sign-out-alt fa-lg"></i>
 		</button>
 		{% endif %}
 	</div>

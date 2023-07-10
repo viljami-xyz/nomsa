@@ -8,7 +8,7 @@ from app.services.authentication import current_active_user
 
 templates = Jinja2Templates(directory="templates")
 
-router = routing.APIRouter(prefix="/home", tags=["home"])
+router = routing.APIRouter()
 
 
 @router.get("/", operation_id="home")

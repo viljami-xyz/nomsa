@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 # in-app imports
-from app.routes import authentication, home, books, diary, reflections, validate
+from app.routes import authentication, home, reflections, validate
 from app.routes.exception_handlers import (
     starlette_exception_handler,
     http_exception_handler,
@@ -30,12 +30,10 @@ app = FastAPI(title="Nomsa-App", version="0.1.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Pages
-app.include_router(home.router)
-app.include_router(authentication.router)
-app.include_router(books.router)
-app.include_router(diary.router)
-app.include_router(reflections.router)
-app.include_router(validate.router)
+app.include_router(home.router, prefix="/home", tags=["home"])
+app.include_router(authentication.router, tags=["authentication"])
+app.include_router(reflections.router, tags=["reflections"])
+app.include_router(validate.router, prefix="/validate", tags=["validate"])
 
 # Authentication
 app.include_router(

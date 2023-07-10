@@ -34,7 +34,7 @@
 	document.addEventListener("htmx:afterRequest", function (event) {
 		if (event.detail.requestConfig.path === "/auth/login") {
 			if (event.detail.xhr.status === 204) {
-				window.location.href = "/home";
+				window.location.href = "/";
 			} else if (event.detail.xhr.status === 400) {
 				var loginResult = document.getElementById("login-result");
 				loginResult.textContent =

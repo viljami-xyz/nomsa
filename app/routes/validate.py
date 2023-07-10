@@ -5,12 +5,12 @@
 from fastapi import routing, Request, Form
 from fastapi.templating import Jinja2Templates
 
-from pydantic import EmailStr, Field
+from pydantic import EmailStr
 from pydantic.errors import EmailError
 
 templates = Jinja2Templates(directory="templates")
 
-router = routing.APIRouter(prefix="/validate", tags=["login", "register"])
+router = routing.APIRouter()
 
 
 @router.post("/email")
