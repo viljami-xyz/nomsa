@@ -1,12 +1,21 @@
-<div>
-    <p id="description" class=" ml-2 text-xs  transition-opacity duration-300 text-gray-500 opacity-0 max-h-0">
-        {{ question.text }}
-    </p>
-    <input
-        class="ml-2 justify-center mt-2 focus:mt-4 focus:outline-none focus:ring-0 text-gray-500 text-lg transition-all duration-300 pl-2   "
-        type="text" name="good" placeholder="{{ question.text }}"
-        onfocus="this.placeholder=''; document.getElementById('description').classList.add('opacity-100');"
-        onblur="this.placeholder='{{ question.text }}'; document.getElementById('description').classList.remove('opacity-100');"
-        data-question-id="{{ question.id }}" />
+<div class="flex flex-row">
+    <div>
+        <p id="description" class=" ml-2 text-xs  transition-opacity duration-300 text-gray-500 opacity-0 max-h-0">
+            {{ question.text }}
+        </p>
+        <input
+            class="ml-2 justify-center mt-2 focus:mt-4 focus:outline-none focus:ring-0 text-gray-500 text-lg transition-all duration-300 pl-2   "
+            type="text" name="answer" id="answer" placeholder="{{ question.text }}"
+            onfocus="this.placeholder=''; document.getElementById('description').classList.add('opacity-100');"
+            onblur="this.placeholder='{{ question.text }}'; document.getElementById('description').classList.remove('opacity-100');"
+            data-question-id="{{ question.id }}" />
+    </div>
+    <div class="ml-auto justify-end mt-3 pr-2">
+        {% if question.id|int > -1 %}
+        <button class="  text-gray-500" hx-post="/question" hx-target="#answer-{{ question.id }}" hx-swap="innerHTML">
+            <i class="fas fa-chevron-right text-orange-500"></i>
+        </button>
+        {% endif %}
 
+    </div>
 </div>

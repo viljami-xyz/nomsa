@@ -5,6 +5,7 @@
     """
 from fastapi import routing, Request, Form, Depends
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from app.db.models import User
 from app.services.authentication import current_active_user
 
@@ -29,19 +30,6 @@ async def reflections(request: Request, user: User = Depends(current_active_user
     )
 
 
-@router.post("/new")
-async def new_reflection(
-    request: Request,
-    good: str = Form(...),
-    smile: str = Form(...),
-    other: str = Form(...),
-    user: User = Depends(current_active_user),
-):
-    """Insert new reflection into database"""
-    print(good, smile, other)
-    return {"message": "New reflection created successfully."}
-
-
 @router.get("/question/{question_id}")
 async def get_question(
     request: Request,
@@ -49,20 +37,23 @@ async def get_question(
     _user: User = Depends(current_active_user),
 ):
     """Get a random question from the database"""
+    if question_id > len(QUESTIONS) - 1:
+        question = {"id": "-1", "text": "All done!"}
     question = QUESTIONS[int(question_id)]
-    print(question)
     return templates.TemplateResponse(
         "reflections/questionInput.html", {"request": request, "question": question}
     )
 
 
-@router.post("/question/{question_id}")
+@router.post("/question")
 async def answer_question(
     request: Request,
-    question_id: int = 0,
     answer: str = Form(...),
     _user: User = Depends(current_active_user),
 ):
     """Insert new reflection into database"""
-    print(question_id, answer)
-    return {"message": "New reflection created successfully."}
+    return templates.TemplateResponse(
+        "reflections/questionAnswer.html",
+        context={"request": request, "answer": answer},
+        status_code=200,
+    )
