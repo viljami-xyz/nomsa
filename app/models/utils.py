@@ -9,6 +9,7 @@ from pydantic.fields import ModelField
 
 
 def as_form(cls: Type[BaseModel]):
+    """Decorator to convert a Pydantic model to a FastAPI form"""
     new_parameters = []
 
     for field_name, model_field in cls.__fields__.items():
