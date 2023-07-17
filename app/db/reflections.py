@@ -1,11 +1,12 @@
 """ Database operations for reflections. """
 import uuid
+from datetime import datetime
 
 from sqlalchemy.future import select
 
 
 from app.db.settings import async_session_maker
-from app.db.models import Reflection
+from app.db.models import Reflection, ReflectionQuestion
 from app.models.reflections import ReflectionModel
 
 
@@ -28,6 +29,22 @@ async def get_reflections(user_id: uuid.UUID):
         stmt = select(Reflection).where(Reflection.user_id == user_id)
         result = await session.execute(stmt)
         my_reflections = result.scalars().all()
+        return my_reflections
+
+
+async def get_todays_reflections(user_id: uuid.UUID):
+    """Get all this days reflections from database"""
+    today = datetime.today().strftime("%Y-%m-%d")
+    async with async_session_maker() as session:
+        stmt = (
+            select(Reflection)
+            .where(Reflection.user_id == user_id)
+            .where(Reflection.timestamp == today)
+        )
+        result = await session.execute(stmt)
+        my_reflections = result.scalars().all()
+        if not my_reflections:
+            stmt = select(ReflectionQuestion).where(Reflection.user_id == user_id)
         return my_reflections
 
 

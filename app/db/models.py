@@ -1,11 +1,17 @@
 """ Database models """
 
-import uuid
-from datetime import datetime
+from datetime import date
 
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTableUUID
-from sqlalchemy import Column, String, ForeignKey, Integer, Table, Boolean, DateTime
+from sqlalchemy import (
+    Column,
+    String,
+    ForeignKey,
+    Integer,
+    Boolean,
+    Date,
+)
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import relationship
 
@@ -14,12 +20,8 @@ class Base(DeclarativeBase):
     """Base class for ORM models"""
 
 
-reflection_user = Table(
-    "reflection_user",
-    Base.metadata,
-    Column("reflection_id", Integer, ForeignKey("reflections.reflection_id")),
-    Column("id", Integer, ForeignKey("user.id")),
-)
+class AccessToken(SQLAlchemyBaseAccessTokenTableUUID, Base):
+    """Access token model"""
 
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
@@ -27,33 +29,30 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
 
     username = Column(String)
 
-    reflections = relationship(
-        "Reflection", secondary=reflection_user, back_populates="user"
-    )
+    reflections = relationship("UserResponse")
 
 
-class AccessToken(SQLAlchemyBaseAccessTokenTableUUID, Base):
-    """Access token model"""
-
-
-class Reflection(Base):
+class UserResponse(Base):
     """Reflection model"""
 
-    __tablename__ = "reflections"
-    reflection_id = Column(String, primary_key=True, index=True)
+    __tablename__ = "user_response"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(ForeignKey("user.id"))
-    question = Column(String)
-    answer = Column(String)
+    question_id = Column(Integer, ForeignKey("reflection_question.id"), nullable=False)
+    response = Column(String, nullable=True)
     confirmed = Column(Boolean, default=False)
-    timestamp = Column(DateTime, default=datetime.utcnow())
 
-    user = relationship("User", secondary=reflection_user, back_populates="reflections")
+    user = relationship("User", backref="user")
+    question = relationship("ReflectionQuestion", backref="question")
 
 
-class ReflectQuestion(Base):
+class ReflectionQuestion(Base):
     """Qeustion model"""
 
-    __tablename__ = "questions"
-    id = Column(String, primary_key=True, index=True)
-    question = Column(String)
-    category = Column(String)
+    __tablename__ = "reflection_question"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    question_text = Column(String, nullable=False)
+    category = Column(String, nullable=False)
+    date = Column(Date, default=date.today(), nullable=False)
