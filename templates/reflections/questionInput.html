@@ -1,13 +1,13 @@
 <div class="flex flex-row">
     <div>
         <p id="description" class=" ml-2 text-xs  transition-opacity duration-300 text-gray-500 opacity-0 max-h-0">
-            {{ question.text }}
+            {{ question.question_text }}
         </p>
         <input
             class="ml-2 justify-center mt-2 focus:mt-4 focus:outline-none focus:ring-0 text-gray-500 text-lg transition-all duration-300 pl-2   "
-            type="text" name="answer" id="answer" placeholder="{{ question.text }}"
+            type="text" name="answer" id="answer" placeholder="{{ question.question_text }}"
             onfocus="this.placeholder=''; document.getElementById('description').classList.add('opacity-100');"
-            onblur="this.placeholder='{{ question.text }}'; document.getElementById('description').classList.remove('opacity-100');"
+            onblur="this.placeholder='{{ question.question_text }}'; document.getElementById('description').classList.remove('opacity-100');"
             data-question-id="{{ question.id }}" />
     </div>
     <div class="ml-auto justify-end mt-3 pr-2">

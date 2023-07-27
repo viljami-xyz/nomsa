@@ -29,8 +29,6 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
 
     username = Column(String)
 
-    reflections = relationship("UserResponse")
-
 
 class UserResponse(Base):
     """Reflection model"""
