@@ -1,0 +1,33 @@
+<div class="w-80" id="reflectionWindow">
+    <div id="questionInput" class="">
+        {% for question in questions %}
+        {% include "reflections/questionInput.html" %}
+        {% endfor %}
+    </div>
+
+    <div id="reflection-list" class="flex flex-col mt-2 items-center">
+        <h3 class="text-gray-500 text-md mb-2">Questions for the day</h3>
+        {% for question in questions %}
+        <div class="bg-white rounded text-xs py-0.5 px-1 cursor-pointer m-1 hover:shadow-md delay-0 transition-shadow shadow-blue-100  gap-x-1"
+            data-question-id={{ question.id }} hx-get="/question/{{ question.id }}" hx-target="#questionInput"
+            hx-swap="innerHTML">
+            <div class="flex justify-center">
+                <p>{{ question.question_text }}</p>
+                <div class=" hover:bg-red-300/25 rounded-md pr-1 ml-1">
+                    <i class="fas fas fa-pencil-alt fa-xs mt-2 ml-1 text-red-300"></i>
+                </div>
+            </div>
+            <div class="text-center text-xs text-orange-400 opacity-90" id="answer-{{ question.id }}">
+                {{ answers.get(question.id, "") }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="flex items-center justify-center mt-6 ">
+        <button
+            class="flex flex-col items-center bg-red-500 hover:bg-red-400 active:bg-red-300 shadow-md  shadow-blue-200 opacity-50 px-6 py-2 rounded-lg text-white"
+            type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
+            Finish
+            <i class="fas fa-chevron-down text-white -mt-1"></i>
+        </button>
+    </div>
+</div>

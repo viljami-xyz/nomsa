@@ -1,12 +1,11 @@
 """ Database operations for reflections. """
 import uuid
-from datetime import datetime
+from typing import List
 
 from sqlalchemy.future import select
 
-
+from app.db.models import ReflectionQuestion, UserResponse
 from app.db.settings import async_session_maker
-from app.db.models import UserResponse, ReflectionQuestion
 from app.models.reflections import ReflectionModel
 
 
@@ -21,6 +20,19 @@ async def get_user_reflection(reflection_id: int, user_id: uuid.UUID):
         result = await session.execute(stmt)
         my_reflection = result.scalars().first()
         return my_reflection
+
+
+async def get_user_reflection_list(id_list: List[int], user_id: uuid.UUID):
+    """Return answer where question_id is found on id_list"""
+    async with async_session_maker() as session:
+        stmt = (
+            select(UserResponse)
+            .where(UserResponse.user_id == user_id)
+            .where(UserResponse.question_id.in_(id_list))
+        )
+        result = await session.execute(stmt)
+        my_reflections = result.scalars().all()
+    return my_reflections
 
 
 async def get_reflection_question(reflection_id: int):
@@ -43,12 +55,13 @@ async def get_all_reflections(user_id: uuid.UUID):
 
 async def get_todays_reflections():
     """Get all this days reflections from database"""
-    today = datetime.today().strftime("%Y-%m-%d")
+    today = "2023-07-27"  # datetime.today().strftime("%Y-%m-%d")
     async with async_session_maker() as session:
         stmt = select(ReflectionQuestion).where(ReflectionQuestion.date == today)
         result = await session.execute(stmt)
-        my_reflections = [x.__dict__ for x in result.scalars().all()]
-        return my_reflections
+        my_reflections = result.scalars().all()
+
+    return my_reflections
 
 
 async def create_reflection(reflection: ReflectionModel, user_id: uuid.UUID):
