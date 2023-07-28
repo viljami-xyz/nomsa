@@ -1,28 +1,29 @@
 """ The application """
 
 
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.staticfiles import StaticFiles
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
+
+from app.db.models import User
+from app.db.settings import create_db_and_tables
 
 # in-app imports
 from app.routes import authentication, home, reflections, validate
 from app.routes.exception_handlers import (
-    starlette_exception_handler,
     http_exception_handler,
+    starlette_exception_handler,
     validation_exception_handler,
 )
-from app.db.settings import create_db_and_tables
-from app.db.models import User
 from app.services.authentication import (
     UserCreate,
     UserRead,
     UserUpdate,
-    fastapi_users,
     auth_backend,
     current_active_user,
+    fastapi_users,
 )
 
 # Create the application

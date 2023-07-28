@@ -1,6 +1,6 @@
 """ Home page routing """
 
-from fastapi import Request, routing, Depends
+from fastapi import Depends, Request, routing
 from fastapi.templating import Jinja2Templates
 
 from app.db.models import User

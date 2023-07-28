@@ -1,22 +1,21 @@
 """ Authentication service. """
 
 import uuid
-from typing import Optional, AsyncGenerator
+from typing import AsyncGenerator, Optional
 
 from fastapi import Depends, Request, Response
-
 from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin, schemas
-from fastapi_users.db import SQLAlchemyUserDatabase
 from fastapi_users.authentication import AuthenticationBackend, CookieTransport
 from fastapi_users.authentication.strategy.db import (
     AccessTokenDatabase,
     DatabaseStrategy,
 )
+from fastapi_users.db import SQLAlchemyUserDatabase
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyAccessTokenDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.settings import async_session_maker
 from app.db.models import AccessToken, User
+from app.db.settings import async_session_maker
 
 # Database settings and connection.
 

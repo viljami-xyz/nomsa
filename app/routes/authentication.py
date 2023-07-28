@@ -2,13 +2,12 @@
     Routes for login
 """
 
-from fastapi import routing, Request, Depends
-from fastapi.templating import Jinja2Templates
+from fastapi import Depends, Request, routing
 from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
 
 from app.db.models import User
 from app.services.authentication import fastapi_users
-
 
 templates = Jinja2Templates(directory="templates")
 

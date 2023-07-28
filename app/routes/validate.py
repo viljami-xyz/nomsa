@@ -2,9 +2,8 @@
     Routes for data validation
 """
 
-from fastapi import routing, Request, Form
+from fastapi import Form, Request, routing
 from fastapi.templating import Jinja2Templates
-
 from pydantic import EmailStr
 from pydantic.errors import EmailError
 

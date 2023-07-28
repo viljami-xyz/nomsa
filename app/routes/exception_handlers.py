@@ -2,10 +2,8 @@
 
 
 from fastapi import Request
-from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from starlette.responses import JSONResponse
-
 
 templates = Jinja2Templates(directory="templates")
 

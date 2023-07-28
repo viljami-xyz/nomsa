@@ -3,24 +3,16 @@
     _description_: The reflections API allows users to create, read, update, and delete reflections.
 
     """
-from fastapi import routing, Request, Form, Depends
+
+from fastapi import Depends, Form, Request, routing
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+
 from app.db.models import User
-from app.db.reflections import (
-    get_all_reflections,
-    get_todays_reflections,
-    create_reflection,
-    delete_reflection,
-    get_user_reflection,
-    get_reflection_question,
-)
-from app.services.authentication import current_active_user
+from app.db.reflections import create_reflection, get_todays_reflections
 from app.models.reflections import ReflectionModel
+from app.services.authentication import current_active_user
 
 templates = Jinja2Templates(directory="templates")
-
-
 router = routing.APIRouter()
 
 
@@ -46,7 +38,7 @@ async def get_question(
     if question_id == 0:
         question = todays_questions[0]
     elif question_id not in [x["id"] for x in todays_questions]:
-        question = {"id": "-1", "text": "All done!"}
+        question = {"id": "-1", "question_text": "All done!"}
     else:
         question = [x for x in todays_questions if x["id"] == question_id][0]
     return templates.TemplateResponse(
