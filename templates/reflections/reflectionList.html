@@ -1,0 +1,7 @@
+<div>
+    {% for reflection in reflections %}
+    <div>
+        <p>{{ reflection.question_text }} - {{ answers.get(reflection.id) }}</p>
+    </div>
+    {% endfor %}
+</div>

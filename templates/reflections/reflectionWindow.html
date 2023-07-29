@@ -1,14 +1,28 @@
-<div class="w-80" id="reflectionWindow">
+<div class="w-80 " id="reflectionWindow">
     <div id="questionInput" class="">
         {% for question in questions %}
         {% include "reflections/questionInput.html" %}
         {% endfor %}
+        {% if show_id == -1 %}
+        <div
+            class="flex flex-row rounded-xl bg-green-300/50 h-10  items-center w-52 mx-auto shadow-green-300 shadow-md mb-6">
+            <h2 class="ml-4">All done for today!</h2>
+            <i class="fas fa-check-circle text-green-500 ml-auto mr-2 fa-xl "></i>
+        </div>
+        {% endif %}
+
     </div>
 
-    <div id="reflection-list" class="flex flex-col mt-2 items-center">
-        <h3 class="text-gray-500 text-md mb-2">Questions for the day</h3>
+    <div id="reflection-list" class="flex flex-col mt-3 items-center">
+        <div class="flex flex-row">
+            <h3 class="text-gray-500 text-md mb-2">Questions for the day</h3>
+            <div class="ml-1 cursor-pointer hover:bg-gray-200 mb-auto px-1 rounded-md">
+                <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+        </div>
         {% for question in questions %}
-        <div class="bg-white rounded text-xs py-0.5 px-1 cursor-pointer m-1 hover:shadow-md delay-0 transition-shadow shadow-blue-100  gap-x-1"
+        {% if question.id in answers.keys() %}
+        <div class="bg-white rounded-lg text-xs py-0.5 px-1.5 cursor-pointer mt-2 m-1 shadow-md delay-0 transition-shadow shadow-orange-100/50 hover:shadow-orange-300  gap-x-1"
             data-question-id={{ question.id }} hx-get="/question/{{ question.id }}" hx-target="#questionInput"
             hx-swap="innerHTML">
             <div class="flex justify-center">
@@ -17,17 +31,24 @@
                     <i class="fas fas fa-pencil-alt fa-xs mt-2 ml-1 text-red-300"></i>
                 </div>
             </div>
-            <div class="text-center text-xs text-orange-400 opacity-90" id="answer-{{ question.id }}">
+            <div class="text-center text-xs text-orange-400/90 opacity-90 " id="answer-{{ question.id }}">
                 {{ answers.get(question.id, "") }}</div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
+    {% if answers|length > 0 %}
     <div class="flex items-center justify-center mt-6 ">
-        <button
-            class="flex flex-col items-center bg-red-500 hover:bg-red-400 active:bg-red-300 shadow-md  shadow-blue-200 opacity-50 px-6 py-2 rounded-lg text-white"
-            type="submit" hx-post="new" hx-trigger="click" hx-target="#reflectionList">
-            Finish
-            <i class="fas fa-chevron-down text-white -mt-1"></i>
-        </button>
+        <form>
+            <input type="hidden" name="answer_ids" value="{{ answers.keys()|join(',') }}">
+            <button
+                class="flex flex-col items-center bg-red-500/90 hover:bg-red-400 active:bg-red-300 shadow-md  shadow-red-200 hover:shadow-red-400/50 opacity-50 px-6 py-2 rounded-lg text-white"
+                hx-post="/confirm-reflections" hx-trigger="click" hx-target="#reflectionList">
+                Finish
+                <i class="fas fa-chevron-down text-white -mt-1"></i>
+            </button>
+        </form>
     </div>
+    <div id="reflectionList"></div>
+    {% endif %}
 </div>

@@ -12,7 +12,7 @@
                 type="text" name="answer" id="answer" placeholder="{{ question.question_text }}"
                 onfocus="this.placeholder=''; document.getElementById('description').classList.add('opacity-100');"
                 onblur="this.placeholder='{{ question.question_text }}'; document.getElementById('description').classList.remove('opacity-100');"
-                data-question-id="{{ question.id }}" />
+                data-question-id="{{ question.id }}" autofocus />
         </div>
         <div class="ml-auto justify-end mt-3 pr-2">
             {% if question.id|int > -1 %}
