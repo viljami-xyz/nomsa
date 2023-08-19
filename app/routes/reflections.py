@@ -11,14 +11,13 @@ from fastapi.templating import Jinja2Templates
 from app.db.models import User
 from app.db.reflections import (
     create_user_response,
-    get_all_reflections,
     get_all_user_responses,
     get_reflection_question,
     get_todays_reflections,
     get_user_response_list,
     set_user_response_states,
 )
-from app.models.reflections import ReflectionModel
+from app.models.reflections import ReflectionAnswer, ReflectionModel
 from app.services.authentication import current_active_user
 
 templates = Jinja2Templates(directory="templates")
@@ -131,14 +130,13 @@ async def history(
     user: User = Depends(current_active_user),
 ):
     """History page"""
-    all_reflections = await get_all_reflections()
-    [question.id for question in all_reflections]
     users_answers = await get_all_user_responses(user.id)
-    users_answers = {answer.question_id: answer.response for answer in users_answers}
+    users_answers = [ReflectionAnswer.from_orm(answer) for answer in users_answers]
     return templates.TemplateResponse(
         "history/index.html",
         {
             "request": request,
             "user": user,
+            "history": users_answers,
         },
     )

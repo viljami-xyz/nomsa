@@ -5,15 +5,14 @@ from datetime import date
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTableUUID
 from sqlalchemy import (
+    Boolean,
     Column,
-    String,
+    Date,
     ForeignKey,
     Integer,
-    Boolean,
-    Date,
+    String,
 )
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase, relationship
 
 
 class Base(DeclarativeBase):

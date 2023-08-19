@@ -3,6 +3,7 @@ import uuid
 from typing import List
 
 from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
 
 from app.db.models import ReflectionQuestion, UserResponse
 from app.db.settings import async_session_maker
@@ -48,7 +49,9 @@ async def get_all_user_responses(user_id: uuid.UUID):
     """Get all reflections from database"""
     async with async_session_maker() as session:
         stmt = select(UserResponse).where(UserResponse.user_id == user_id)
-        result = await session.execute(stmt)
+        result = await session.execute(
+            stmt.options(selectinload(UserResponse.question))
+        )
         my_reflections = result.scalars().all()
     return my_reflections
 

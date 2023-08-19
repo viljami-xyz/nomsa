@@ -1,3 +1,22 @@
 <div>
-    <h1> This is history page</h1>
+    <table class=" border-collapse my-6 text-sm font-serif  shadow-md rounded-xl overflow-hidden cursor-pointer">
+        <tr class="text-white text-left bg-orange-300">
+            <th class="px-4 py-3 ">Answer</th>
+            <th class="px-4 py-3">Question</th>
+            <th class="px-4 py-3">Date</th>
+        </tr>
+        {% for item in history %}
+        <tr class="
+        border-b border-solid border-slate-300
+        {% if loop.index % 2 == 0 %}
+        bg-orange-100
+        {% elif loop.last %}
+        border-none
+        {% endif %}">
+            <td class="px-4 py-3">{{ item.question.question_text }}</td>
+            <td class="px-4 py-3"> {{ item.response }}</td>
+            <td class="px-4 py-3"> {{ item.question.date }} </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>

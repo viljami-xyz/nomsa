@@ -20,11 +20,11 @@
 	<div class="">{% include "shared/header.html" %}</div>
 
 	<div class="flex flex-col items-center mt-20">
-		<div class="flex flex-row justify-center gap-x-1 underline">
-			<a class="text-orange-400" href="/">Today</a>
-			<a class="text-violet-300" href="/history">History</a>
+		<div class="flex flex-row justify-center gap-x-5">
+			<a class="text-orange-400 hover:underline" href="/">Today</a>
+			<a class="text-violet-300 hover:underline" href="/history">History</a>
 		</div>
-		<img src="/static/images/nomsa-logo.png" alt="Nomsa Logo" class="h-20 w-auto mb-6" />
+		<!-- <img src="/static/images/nomsa-logo.png" alt="Nomsa Logo" class="h-20 w-auto mb-6" /> -->
 		{% block reflections %} {% endblock %}
 		{% block history %} {% endblock %}
 		{% block authentication %} {% endblock %}
