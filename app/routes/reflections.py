@@ -17,7 +17,7 @@ from app.db.reflections import (
     get_user_response_list,
     set_user_response_states,
 )
-from app.models.reflections import ReflectionAnswer, ReflectionModel
+from app.models.reflections import UserResponseCard, UserResponseForm
 from app.services.authentication import current_active_user
 
 templates = Jinja2Templates(directory="templates")
@@ -73,7 +73,7 @@ async def answer_question(
     user: User = Depends(current_active_user),
 ):
     """Insert new reflection into database"""
-    reflection = ReflectionModel(question_id=question_id, answer=answer)
+    reflection = UserResponseForm(question_id=question_id, answer=answer)
     await create_user_response(reflection, user.id)
 
     todays_questions = await get_todays_reflections()
@@ -131,7 +131,7 @@ async def history(
 ):
     """History page"""
     users_answers = await get_all_user_responses(user.id)
-    users_answers = [ReflectionAnswer.from_orm(answer) for answer in users_answers]
+    users_answers = [UserResponseCard.from_orm(answer) for answer in users_answers]
     return templates.TemplateResponse(
         "history/index.html",
         {

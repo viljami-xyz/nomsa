@@ -36,20 +36,33 @@ class UserResponse(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(ForeignKey("user.id"))
-    question_id = Column(Integer, ForeignKey("reflection_question.id"), nullable=False)
+    question_id = Column(Integer, ForeignKey("question_of_day.id"), nullable=False)
     response = Column(String, nullable=True)
     confirmed = Column(Boolean, default=False)
 
     user = relationship("User", backref="user")
-    question = relationship("ReflectionQuestion", backref="question")
+    question = relationship("QuestionOfDay", backref="question")
 
 
-class ReflectionQuestion(Base):
+class QuestionOfDay(Base):
     """Qeustion model"""
 
-    __tablename__ = "reflection_question"
+    __tablename__ = "question_of_day"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    source_id = Column(Integer, ForeignKey("question_pool.id"))
+    question_text = Column(String, nullable=False)
+    category = Column(String, nullable=False)
+    date = Column(Date, default=date.today(), nullable=False)
+
+    source = relationship("QuestionPool", backref="source")
+
+
+class QuestionPool(Base):
+    """Question pool model"""
+
+    __tablename__ = "question_pool"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     question_text = Column(String, nullable=False)
     category = Column(String, nullable=False)
-    date = Column(Date, default=date.today(), nullable=False)

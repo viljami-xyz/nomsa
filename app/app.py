@@ -79,6 +79,6 @@ async def root(user: User = Depends(current_active_user)):
 
 
 @app.on_event("startup")
-async def startup_event():
+def startup_event():
     """Create database and tables"""
-    await create_db_and_tables()
+    create_db_and_tables()
