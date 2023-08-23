@@ -1,4 +1,4 @@
-<div class="w-80 " id="reflectionWindow">
+<div class="max-w-lg " id="reflectionWindow" x-data="{ open: false }">
     <div id="questionInput" class="">
         {% for question in questions %}
         {% include "reflections/questionInput.html" %}
@@ -22,9 +22,9 @@
         </div>
         {% for question in questions %}
         {% if question.id in answers.keys() %}
-        <div class="bg-white rounded-lg text-xs py-0.5 px-1.5 cursor-pointer mt-2 m-1 shadow-md delay-0 transition-shadow shadow-orange-100/50 hover:shadow-orange-300  gap-x-1"
+        <div class="min-w-full bg-white rounded-lg text-xs py-0.5 px-1.5 cursor-pointer mt-2 m-1 shadow-md delay-0 transition-shadow shadow-orange-100/50 hover:shadow-orange-300  gap-x-1"
             data-question-id={{ question.id }} hx-get="/question/{{ question.id }}" hx-target="#questionInput"
-            hx-swap="innerHTML">
+            hx-swap="innerHTML" x-on:click="open = true">
             <div class="flex justify-center">
                 <p>{{ question.question_text }}</p>
                 <div class=" hover:bg-red-300/25 rounded-md pr-1 ml-1">
