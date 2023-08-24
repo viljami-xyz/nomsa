@@ -59,9 +59,12 @@ coverage.xml
 
 # Sqlite
 *.db
+test.db
+*.sqlite3
 
 # npm
 node_modules/
 
 # DS_Store files
 .DS_Store
+app/config/test.db

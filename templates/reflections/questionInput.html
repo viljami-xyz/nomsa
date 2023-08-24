@@ -1,32 +1,35 @@
 {% block questionInput %}
 {% if question.id == show_id %}
 <form id="answer">
-    <div id="rootDiv"
-        class="w-full flex flex-col rounded-xl bg-white overflow-hidden transition duration-300 ease-in-out"
-        x-transition>
+    <div id="rootDiv" class="w-full flex flex-col border-orange-400 border-solid border-2 
+        rounded-xl bg-white overflow-hidden transition duration-300 ease-in-out
+        p-2" x-transition>
         <div class="flex-grow">
-            <p id="description" class="cursor-pointer ml-2 w-full duration-300 text-gray-500 text-lg"
-                x-on:click="open = ! open" x-transition>
-                {{ question.question_text }}
-            </p>
+            <div class="flex flex-row">
+                <p id="description" class=" ml-2 w-full duration-300 text-gray-500 text-lg" x-transition>
+                    {{ question.question_text }}
+                </p>
+                <div class="justify-end flex ml-auto mb-auto mt-2 p-1.5 cursor-pointer
+                 hover:bg-orange-300 rounded-full" x-on:click="open = ! open" x-transition>
+                    <i class="fas fa-chevron-up text-orange-500" x-show="open == true"></i>
+                    <i class="fas fa-chevron-down text-orange-500" x-show="open == false"></i>
+
+                </div>
+            </div>
             <input type="hidden" name="question_id" value="{{ question.id }}">
-            <textarea class="resize-none w-full max-h-max ml-2 justify-center focus:outline-none
+            <textarea class="resize-none w-full max-h-max ml-1 justify-center focus:outline-none
                 focus:ring-0 text-gray-500 text-lg pl-2" rows="4" wrap="soft" x-show="open" type="text" name="answer"
-                id="answer" x-transition
-                onfocus="document.getElementById('description').classList.add('text-xs').remove('text-lg');"
-                onblur="document.getElementById('description').classList.remove('text-xs').add('text-lg');"
+                id="answer" onfocus="document.getElementById('description').classList.add('text-xs');"
+                onblur="document.getElementById('description').classList.remove('text-xs');"
                 data-question-id="{{ question.id }}"></textarea>
         </div>
-        <div class="justify-center flex pr-2 items-center cursor-pointer" x-on:click="open = false"
-            x-show.important="open" x-transition>
-            <i class="fas fa-chevron-up text-orange-500"></i>
 
-        </div>
-
-        <div class="justify-end flex pr-2 ml-auto" x-show.important="open" x-transition>
+        <div class="justify-end flex ml-auto" x-show.important="open" x-transition>
             {% if question.id|int > -1 %}
-            <button class="text-gray-500" hx-post="/question" hx-target="#reflectionWindow" hx-swap="outerHTML">
-                <i class="fas fa-chevron-right text-orange-500"></i>
+            <button class="p-2 " hx-post="/question" hx-target="#reflectionWindow" hx-swap="outerHTML">
+                <i class="fas fas fa-plus-circle text-lg text-orange-500 rounded-full
+                hover:bg-orange-200 p-2
+                active:bg-orange-100"></i>
             </button>
             {% endif %}
 
